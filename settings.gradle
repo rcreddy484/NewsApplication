@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "BYJU'S Android Assignment"
