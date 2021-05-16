@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="24dp">
+
+        <LinearLayout
+            android:id="@+id/news_background_image_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/news_title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="24dp">
+                <TextView
+                    android:id="@+id/news_channel_name_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/published_date_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
