@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="10sp"
+                android:layout_marginHorizontal="10sp"
                 android:layout_alignParentBottom="true"
                 android:paddingBottom="12dp">
 
@@ -52,23 +52,20 @@
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/news_channel_name_tv"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_bold"
                         android:textColor="#bababa"
-                        android:textSize="12sp"
-                        android:layout_weight="1"/>
+                        android:textSize="12sp"/>
                     <TextView
                         android:id="@+id/published_date_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_bold"
                         android:textColor="#bababa"
-                        android:textSize="12sp"
-                        android:layout_weight="1"
-                        />
+                        android:layout_marginLeft="10sp"
+                        android:textSize="12sp" />
                 </LinearLayout>
-
 
             </LinearLayout>
         </RelativeLayout>

@@ -1,6 +1,9 @@
 package com.rcreddy.byjusandroidassignment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.kwabenaberko.newsapilib.models.Article;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -41,7 +45,7 @@ public class NewsHeadLinesAdapter extends RecyclerView.Adapter<NewsHeadLinesAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsHeadLinesAdapter.MyAdapter holder, int position) {
+    public void onBindViewHolder(@NonNull NewsHeadLinesAdapter.MyAdapter holder, final int position) {
 
 
         holder.news_title_tv.setText(articlesList.get(position).getTitle());
@@ -59,7 +63,23 @@ public class NewsHeadLinesAdapter extends RecyclerView.Adapter<NewsHeadLinesAdap
 
         Picasso.with(mContext)
                 .load(articlesList.get(position).getUrlToImage())
+                .placeholder(R.drawable.noimagefound)
                 .into( holder.news_background_image_ll);
+
+        holder.news_background_image_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Article article = articlesList.get(position);
+                Gson gson = new Gson();
+                String myJson = gson.toJson(article);
+                Intent intent = new Intent(mContext, NewDescriptionActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("Article", myJson);
+                mContext.startActivity(intent);
+            }
+        });
+
 
     }
 
