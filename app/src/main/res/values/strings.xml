@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">BYJU\'S Android Assignment</string>
     <string name="head_lines">H E A D L I N E S</string>
+    <string name="API_KEY">f289f26634e34d5ea11bcbc70f1cdb02</string>
 </resources>
