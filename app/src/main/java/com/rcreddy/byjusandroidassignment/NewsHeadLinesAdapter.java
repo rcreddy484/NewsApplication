@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.kwabenaberko.newsapilib.models.Article;
+import com.rcreddy.byjusandroidassignment.Room.News;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -30,9 +31,9 @@ import java.util.List;
 public class NewsHeadLinesAdapter extends RecyclerView.Adapter<NewsHeadLinesAdapter.MyAdapter> {
 
     Context mContext;
-    List<Article> articlesList;
+    List<News> articlesList;
 
-    public NewsHeadLinesAdapter(Context mContext, List<Article> articlesList) {
+    public NewsHeadLinesAdapter(Context mContext, List<News> articlesList) {
         this.mContext = mContext;
         this.articlesList = articlesList;
     }
@@ -49,7 +50,7 @@ public class NewsHeadLinesAdapter extends RecyclerView.Adapter<NewsHeadLinesAdap
 
 
         holder.news_title_tv.setText(articlesList.get(position).getTitle());
-        holder.news_channel_name_tv.setText(articlesList.get(position).getSource().getName());
+        holder.news_channel_name_tv.setText(articlesList.get(position).getName());
 
         String dateStr = articlesList.get(position).getPublishedAt();
         String[] dateArray = dateStr.split("T");
@@ -70,7 +71,7 @@ public class NewsHeadLinesAdapter extends RecyclerView.Adapter<NewsHeadLinesAdap
             @Override
             public void onClick(View view) {
 
-                Article article = articlesList.get(position);
+                News article = articlesList.get(position);
                 Gson gson = new Gson();
                 String myJson = gson.toJson(article);
                 Intent intent = new Intent(mContext, NewDescriptionActivity.class);

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.kwabenaberko.newsapilib.models.Article;
+import com.rcreddy.byjusandroidassignment.Room.News;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -43,14 +44,14 @@ public class NewDescriptionActivity extends AppCompatActivity {
 
         String article =  getIntent().getStringExtra("Article");
 
-        Article articleObj = new Gson().fromJson(article, Article.class);
+        News articleObj = new Gson().fromJson(article, News.class);
 
         Picasso.with(getApplicationContext())
                 .load(articleObj.getUrlToImage())
                 .placeholder(R.drawable.noimagefound)
                 .into( news_background_image_ll);
 
-        news_channel_name_tv.setText(articleObj.getSource().getName());
+        news_channel_name_tv.setText(articleObj.getName());
         news_description_tv.setText(articleObj.getDescription());
         news_title_tv.setText(articleObj.getTitle());
 

@@ -3,12 +3,17 @@ package com.rcreddy.byjusandroidassignment;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,6 +30,8 @@ import com.kwabenaberko.newsapilib.models.request.SourcesRequest;
 import com.kwabenaberko.newsapilib.models.request.TopHeadlinesRequest;
 import com.kwabenaberko.newsapilib.models.response.ArticleResponse;
 import com.kwabenaberko.newsapilib.models.response.SourcesResponse;
+import com.rcreddy.byjusandroidassignment.Room.MyDatabase;
+import com.rcreddy.byjusandroidassignment.Room.News;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +42,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-
+    MyDatabase myDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +52,41 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        newsApi();
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            Toast.makeText(getApplicationContext(), "Internet Connected", Toast.LENGTH_SHORT).show();
+            connected = true;
+        } else{
+            Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+            connected = false;
+        }
 
+        setUpDB();
+
+        if (connected){
+            newsApi();
+        }else {
+            List<News> stuData =  myDatabase.dao().getNews();
+
+            for (int i =0; i<stuData.size(); i++){
+                Log.d("NEWS DATA" , String.valueOf(stuData.get(i).getStuId() +": "+
+                        stuData.get(i).getName()+": "+ stuData.get(i).getPublishedAt()+": "+
+                        stuData.get(i).getTitle()));
+            }
+
+            NewsHeadLinesAdapter adapter = new NewsHeadLinesAdapter(getApplicationContext(), stuData );
+            recyclerView.setAdapter(adapter);
+        }
+
+    }
+
+    private void setUpDB(){
+
+        myDatabase = Room.databaseBuilder(MainActivity.this , MyDatabase.class , "NewsDB")
+                .allowMainThreadQueries().build();
     }
 
     void newsApi(){
@@ -55,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         // /v2/everything
         newsApiClient.getEverything(
                 new EverythingRequest.Builder()
-                        .q("trump")
+                        .q("")
                         .build(),
                 new NewsApiClient.ArticlesResponseCallback() {
                     @Override
@@ -82,7 +122,38 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println(response.getArticles());
                         List<Article> articlesList = response.getArticles();
 
-                        NewsHeadLinesAdapter adapter = new NewsHeadLinesAdapter(getApplicationContext(), articlesList );
+                        /*List<News> deleteNewsData =  myDatabase.dao().getNews();
+                        for (News NewsData : deleteNewsData){
+                            myDatabase.dao().deleteNews();
+                        }*/
+                        myDatabase.dao().deleteNews();
+                        List<News> insertNewsDatatst =  myDatabase.dao().getNews();
+                        for (int i =0; i<insertNewsDatatst.size(); i++){
+
+                            Log.d("STUDENT_DATA" , String.valueOf(insertNewsDatatst.get(i).getStuId() +": "+
+                                    insertNewsDatatst.get(i).getName()+": "+ insertNewsDatatst.get(i).getPublishedAt()+": "+
+                                    insertNewsDatatst.get(i).getTitle()));
+                        }
+
+
+                        News news = null;
+                        for (Article article : articlesList){
+                            news = new News(article.getSource().getName(),article.getTitle(),
+                                    article.getUrlToImage(), article.getPublishedAt(),
+                                    article.getDescription());
+                            myDatabase.dao().newsInsertion(news);
+                        }
+
+                        List<News> insertNewsData =  myDatabase.dao().getNews();
+                        /*for (int i =0; i<insertNewsData.size(); i++){
+
+                            Log.d("STUDENT_DATA" , String.valueOf(insertNewsData.get(i).getStuId() +": "+
+                                    insertNewsData.get(i).getName()+": "+ insertNewsData.get(i).getPublishedAt()+": "+
+                                    insertNewsData.get(i).getTitle()));
+
+                        }*/
+
+                        NewsHeadLinesAdapter adapter = new NewsHeadLinesAdapter(getApplicationContext(), insertNewsData );
                         recyclerView.setAdapter(adapter);
                     }
 

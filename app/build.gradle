@@ -38,8 +38,10 @@ dependencies {
     implementation 'com.github.KwabenBerko:News-API-Java:1.0.0'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    
 
+    //Room
+    implementation 'androidx.room:room-runtime:2.0.0'
+    annotationProcessor 'androidx.room:room-compiler:2.0.0'
 
 
 }
