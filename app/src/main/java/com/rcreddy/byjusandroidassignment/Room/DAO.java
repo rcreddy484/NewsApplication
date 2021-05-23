@@ -15,8 +15,9 @@ public interface DAO {
     @Query("Select * from News")
     List<News> getNews();
 
-    @Query("Update News set stuFirstName = :stuName where id = :id")
-    void updateNews(String stuName, int id);
+    @Query("Update News set name = :name, title = :title, urlToImage = :urlToImage," +
+            " publishedAt = :publishedAt, description = :description")
+    void updateNews(String name, String title, String urlToImage, String publishedAt, String description);
 
     @Query("Delete from News")
     void deleteNews();

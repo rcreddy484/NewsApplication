@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.kwabenaberko.newsapilib.models.Article;
 import com.rcreddy.byjusandroidassignment.Room.News;
 import com.squareup.picasso.Picasso;
 
@@ -27,6 +26,36 @@ public class NewDescriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_description);
 
+        initializeViews();
+
+        //get Intent data
+        String article =  getIntent().getStringExtra("Article");
+
+        //converting JsonString to Gson
+        News articleObj = new Gson().fromJson(article, News.class);
+
+        news_channel_name_tv.setText(articleObj.getName());
+        news_description_tv.setText(articleObj.getDescription());
+        news_title_tv.setText(articleObj.getTitle());
+
+        //Using Picasso library to load image
+        Picasso.with(getApplicationContext())
+                .load(articleObj.getUrlToImage())
+                .placeholder(R.drawable.noimagefound)
+                .into( news_background_image_ll);
+
+        String publishedDateStr = articleObj.getPublishedAt();
+        String[] dateArray = publishedDateStr.split("T");
+        String publishedDate = "";
+        for (int i = 0; i< dateArray.length ; i++) {
+            publishedDate = dateArray[0];
+            break;
+        }
+        published_date_tv.setText(publishedDate);
+
+    }
+
+    private void initializeViews() {
         news_background_image_ll = findViewById(R.id.news_background_image_ll);
         news_title_tv = findViewById(R.id.news_title_tv);
         news_channel_name_tv = findViewById(R.id.news_channel_name_tv);
@@ -41,28 +70,5 @@ public class NewDescriptionActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        String article =  getIntent().getStringExtra("Article");
-
-        News articleObj = new Gson().fromJson(article, News.class);
-
-        Picasso.with(getApplicationContext())
-                .load(articleObj.getUrlToImage())
-                .placeholder(R.drawable.noimagefound)
-                .into( news_background_image_ll);
-
-        news_channel_name_tv.setText(articleObj.getName());
-        news_description_tv.setText(articleObj.getDescription());
-        news_title_tv.setText(articleObj.getTitle());
-
-        String dateStr = articleObj.getPublishedAt();
-        String[] dateArray = dateStr.split("T");
-        String date = "";
-        for (int i = 0; i< dateArray.length ; i++) {
-            date = dateArray[0];
-            break;
-        }
-        published_date_tv.setText(date);
-
     }
 }

@@ -48,7 +48,6 @@ public class NewsHeadLinesAdapter extends RecyclerView.Adapter<NewsHeadLinesAdap
     @Override
     public void onBindViewHolder(@NonNull NewsHeadLinesAdapter.MyAdapter holder, final int position) {
 
-
         holder.news_title_tv.setText(articlesList.get(position).getTitle());
         holder.news_channel_name_tv.setText(articlesList.get(position).getName());
 
@@ -62,10 +61,14 @@ public class NewsHeadLinesAdapter extends RecyclerView.Adapter<NewsHeadLinesAdap
         }
         holder.published_date_tv.setText(date);
 
-        Picasso.with(mContext)
-                .load(articlesList.get(position).getUrlToImage())
-                .placeholder(R.drawable.noimagefound)
-                .into( holder.news_background_image_ll);
+        try {
+            Picasso.with(mContext)
+                    .load(articlesList.get(position).getUrlToImage())
+                    .placeholder(R.drawable.noimagefound)
+                    .into( holder.news_background_image_ll);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         holder.news_background_image_ll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,14 +76,13 @@ public class NewsHeadLinesAdapter extends RecyclerView.Adapter<NewsHeadLinesAdap
 
                 News article = articlesList.get(position);
                 Gson gson = new Gson();
-                String myJson = gson.toJson(article);
+                String articleJson = gson.toJson(article);
                 Intent intent = new Intent(mContext, NewDescriptionActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("Article", myJson);
+                intent.putExtra("Article", articleJson);
                 mContext.startActivity(intent);
             }
         });
-
 
     }
 

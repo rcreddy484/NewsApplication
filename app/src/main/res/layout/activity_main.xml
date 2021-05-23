@@ -24,7 +24,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="#464646">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/headlines_list_view"
