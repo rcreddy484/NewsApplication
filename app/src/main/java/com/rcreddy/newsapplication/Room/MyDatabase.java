@@ -1,4 +1,4 @@
-package com.rcreddy.byjusandroidassignment.Room;
+package com.rcreddy.newsapplication.Room;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;

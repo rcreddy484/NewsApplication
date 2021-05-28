@@ -1,4 +1,4 @@
-package com.rcreddy.byjusandroidassignment;
+package com.rcreddy.newsapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.rcreddy.byjusandroidassignment.Room.News;
+import com.rcreddy.newsapplication.Room.News;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -66,8 +66,7 @@ public class NewDescriptionActivity extends AppCompatActivity {
         back_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
     }

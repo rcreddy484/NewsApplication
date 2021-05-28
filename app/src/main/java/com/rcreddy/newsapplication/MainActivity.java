@@ -1,13 +1,11 @@
-package com.rcreddy.byjusandroidassignment;
+package com.rcreddy.newsapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -21,8 +19,8 @@ import com.kwabenaberko.newsapilib.models.request.SourcesRequest;
 import com.kwabenaberko.newsapilib.models.request.TopHeadlinesRequest;
 import com.kwabenaberko.newsapilib.models.response.ArticleResponse;
 import com.kwabenaberko.newsapilib.models.response.SourcesResponse;
-import com.rcreddy.byjusandroidassignment.Room.MyDatabase;
-import com.rcreddy.byjusandroidassignment.Room.News;
+import com.rcreddy.newsapplication.Room.MyDatabase;
+import com.rcreddy.newsapplication.Room.News;
 
 import java.util.List;
 
@@ -83,10 +81,9 @@ public class MainActivity extends AppCompatActivity {
         // /v2/top-headlines
         newsApiClient.getTopHeadlines(
                 new TopHeadlinesRequest.Builder()
-                        .q("")
-                        .category("business")
-                        .country("us")
+                        .q("india")
                         .language("en")
+                        .pageSize(35)
                         .build(),
                 new NewsApiClient.ArticlesResponseCallback() {
                     @Override
@@ -130,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 new NewsApiClient.ArticlesResponseCallback() {
                     @Override
                     public void onSuccess(ArticleResponse response) {
-                        System.out.println(response.getArticles().get(0).getTitle());
+                        /*System.out.println(response.getArticles().get(0).getTitle());*/
                     }
 
                     @Override
@@ -149,12 +146,12 @@ public class MainActivity extends AppCompatActivity {
                 new NewsApiClient.SourcesCallback() {
                     @Override
                     public void onSuccess(SourcesResponse response) {
-                        System.out.println(response.getSources().get(0).getName());
+                        /*System.out.println(response.getSources().get(0).getName());*/
                     }
 
                     @Override
                     public void onFailure(Throwable throwable) {
-                        System.out.println(throwable.getMessage());
+                        /*System.out.println(throwable.getMessage());*/
                     }
                 }
         );

@@ -1,31 +1,20 @@
-package com.rcreddy.byjusandroidassignment;
+package com.rcreddy.newsapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
-import com.kwabenaberko.newsapilib.models.Article;
-import com.rcreddy.byjusandroidassignment.Room.News;
+import com.rcreddy.newsapplication.Room.News;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class NewsHeadLinesAdapter extends RecyclerView.Adapter<NewsHeadLinesAdapter.MyAdapter> {

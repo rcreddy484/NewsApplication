@@ -1,4 +1,4 @@
-package com.rcreddy.byjusandroidassignment.Room;
+package com.rcreddy.newsapplication.Room;
 
 import android.content.Context;
 

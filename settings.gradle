@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "BYJU'S Android Assignment"
+rootProject.name = "NewsApplication"

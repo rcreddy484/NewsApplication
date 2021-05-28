@@ -1,4 +1,4 @@
-package com.rcreddy.byjusandroidassignment;
+package com.rcreddy.newsapplication;
 
 import org.junit.Test;
 
